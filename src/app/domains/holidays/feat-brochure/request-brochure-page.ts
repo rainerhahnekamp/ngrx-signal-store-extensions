@@ -17,8 +17,8 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { isValidAddress } from './internal/is-valid-address';
 import { Field, form, submit, validate } from '@angular/forms/signals';
+import { isValidAddress } from './internal/is-valid-address';
 
 @Component({
   selector: 'app-request-info',
@@ -50,9 +50,11 @@ export class RequestBrochurePage {
         : 'Address not found';
   });
 
-  addressForm = form(signal({ address: '' }), (path) => {
-    validate(path.address, ({ field }) => {
-      return isValidAddress(field().value())
+  readonly #addressModel = signal({ address: '' });
+
+  addressForm = form(this.#addressModel, (path) => {
+    validate(path.address, (ctx) => {
+      return isValidAddress(ctx.value())
         ? null
         : { kind: 'invalidAddress', message: 'Address is invalid' };
     });
