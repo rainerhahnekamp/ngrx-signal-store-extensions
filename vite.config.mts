@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
     // Vitest browser config
     browser: {
       enabled: true,
-      headless: false, // set to true in CI
+      headless: true,
       provider: playwright(),
       instances: [{ browser: "chromium" }],
     },

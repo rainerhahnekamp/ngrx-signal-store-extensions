@@ -7,25 +7,25 @@ describe('Customer Registration Screen', () => {
     const fixture = TestBed.createComponent(CustomerRegistrationScreen);
     await fixture.whenStable();
 
-    // const values = {
-    //   'First Name': 'Rainer',
-    //   'Last Name': 'Hahnekamp',
-    //   'Email Address': 'rainer.hahnekamp@gmail.com',
-    //   Password: 'rainer123',
-    //   'Confirm Password': 'rainer123',
-    // };
+    const values = {
+      'First Name': 'Rainer',
+      'Last Name': 'Hahnekamp',
+      'Email Address': 'rainer.hahnekamp@gmail.com',
+      Password: 'rainer123',
+      'Confirm Password': 'rainer123',
+    };
 
-    // for (const [label, value] of Object.entries(values)) {
-    //   await userEvent.type(
-    //     page.getByRole('textbox', { name: label, exact: true }),
-    //     value,
-    //   );
-    // }
+    for (const [label, value] of Object.entries(values)) {
+      await userEvent.type(
+        page.getByRole('textbox', { name: label, exact: true }),
+        value,
+      );
+    }
 
-    // await userEvent.click(page.getByRole('button', { name: 'Continue' }));
+    await userEvent.click(page.getByRole('button', { name: 'Continue' }));
 
-    // await expect
-    //   .element(page.getByRole('status'))
-    //   .toHaveTextContent('Thanks for registering!');
+    await expect
+      .element(page.getByRole('status'))
+      .toHaveTextContent('Thanks for registering!');
   });
 });
