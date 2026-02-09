@@ -101,8 +101,7 @@ import { RegistrationStore } from './registration-store';
             <input
               type="password"
               matInput
-              [formF
-              ield]="customerForm.passwordConfirmation"
+              [formField]="customerForm.passwordConfirmation"
               placeholder="Re-enter your password"
             />
             <mat-icon matPrefix>lock_outline</mat-icon>
