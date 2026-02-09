@@ -17,7 +17,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { Field, form, submit, validate } from '@angular/forms/signals';
+import { FormField, form, submit, validate } from '@angular/forms/signals';
 import { isValidAddress } from './internal/is-valid-address';
 
 @Component({
@@ -34,7 +34,7 @@ import { isValidAddress } from './internal/is-valid-address';
     MatHint,
     RouterLink,
     MatAnchor,
-    Field,
+    FormField,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
