@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { skipSameValues } from './skip-same-values';
-import { getState, patchState, signalState, watchState } from '@ngrx/signals';
+import { patchState, signalState } from '@ngrx/signals';
 
 const createUser = () => ({
   name: {
@@ -184,21 +184,27 @@ describe('skipSameValues', () => {
 
   describe('coverage tests', () => {
     it('treats null and object as different', () => {
-      type Row = { meta: { x: number } | null };
+      interface Row {
+        meta: { x: number } | null;
+      }
       const state: Row = { meta: null };
       const patch = skipSameValues<Row>({ meta: { x: 1 } })(state);
       expect(patch).toStrictEqual({ meta: { x: 1 } });
     });
 
     it('treats array and plain object as different', () => {
-      type Row = { items: string[] | Record<string, string> };
+      interface Row {
+        items: string[] | Record<string, string>;
+      }
       const state: Row = { items: {} };
       const patch = skipSameValues<Row>({ items: ['a'] })(state);
       expect(patch).toStrictEqual({ items: ['a'] });
     });
 
     it('treats unequal primitives as different', () => {
-      type Row = { n: number };
+      interface Row {
+        n: number;
+      }
       const patch = skipSameValues<Row>({ n: 2 })({ n: 1 });
       expect(patch).toStrictEqual({ n: 2 });
     });

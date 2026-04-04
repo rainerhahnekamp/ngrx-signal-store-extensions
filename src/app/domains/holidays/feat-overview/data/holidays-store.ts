@@ -9,7 +9,7 @@ import {
   withState,
 } from '@ngrx/signals';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
-import { computed, effect, inject } from '@angular/core';
+import { effect, inject } from '@angular/core';
 import { Holiday } from '../../model/holiday';
 import { HolidayClient } from './holiday-client';
 import { timer } from 'rxjs';
