@@ -15,11 +15,7 @@ import {
 import { MatDateFnsModule } from '@angular/material-date-fns-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import {
-  provideClientHydration,
-  withEventReplay,
-  withIncrementalHydration,
-} from '@angular/platform-browser';
+
 import { provideStore } from '@ngrx/store';
 import { deAT } from 'date-fns/locale';
 import { environment } from '../environments/environment';
@@ -46,7 +42,6 @@ export const appConfig: ApplicationConfig = {
     },
     provideStore(),
     provideRouter(appRoutes, withComponentInputBinding()),
-    provideClientHydration(withEventReplay(), withIncrementalHydration()),
     provideHttpClient(
       withFetch(),
       withInterceptors([
