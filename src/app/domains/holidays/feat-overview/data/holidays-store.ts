@@ -44,13 +44,11 @@ export const HolidaysStore = signalStore(
         patchState(store, { _holidays, isLoaded: true });
       },
       async addFavourite(id: number) {
-        await holidayClient.addFavourite(id);
         patchState(store, {
           _favouriteIds: [...store._favouriteIds(), id],
         });
       },
       async removeFavourite(id: number) {
-        await holidayClient.removeFavourite(id);
         patchState(store, {
           _favouriteIds: store
             ._favouriteIds()
