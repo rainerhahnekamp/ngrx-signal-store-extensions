@@ -97,7 +97,7 @@ export const HolidaysStore = signalStore(
 
       effect(() => {
         store._favouriteIds();
-        store.holidays();
+        store._holidays();
 
         patchState(store, { _lastUpdated: Date.now() });
       });
