@@ -11,8 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgClass } from '@angular/common';
 import { RouterLinkWithHref } from '@angular/router';
-import { Holiday } from '../../../model/holiday';
 import { QuillComponent } from '../../../../../shared/form/quill/quill.component';
+import { HolidayWithFavourite } from '../../model/model';
 
 @Component({
   selector: 'app-holiday-card',
@@ -29,7 +29,7 @@ import { QuillComponent } from '../../../../../shared/form/quill/quill.component
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HolidayCard {
-  readonly holiday = input.required<Holiday & { isFavourite?: boolean }>();
+  readonly holiday = input.required<HolidayWithFavourite>();
   protected readonly useQuill = input(false);
   protected readonly isEditing = signal(false);
   readonly addFavourite = output<number>();

@@ -1,12 +1,11 @@
-import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, linkedSignal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { HolidaysStore } from './data/holidays-store';
 import { HolidayCard } from './ui/holiday-card/holiday-card';
+import { form, FormRoot, FormField } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-holidays',
@@ -42,21 +41,20 @@ import { HolidayCard } from './ui/holiday-card/holiday-card';
         Save for offline
       </button>
     </div>
-    <form (ngSubmit)="handleSearch()">
+    <form [formRoot]="filterForm">
       <div class="flex items-baseline">
         <mat-form-field>
           <mat-label>Search</mat-label>
           <input
             data-testid="inp-search"
-            [(ngModel)]="search"
+            [formField]="filterForm.query"
             matInput
-            name="search"
           />
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
         <mat-radio-group
-          [(ngModel)]="type"
+          [formField]="filterForm.type"
           name="type"
           color="primary"
           class="mx-4"
@@ -80,20 +78,32 @@ import { HolidayCard } from './ui/holiday-card/holiday-card';
     </div> `,
   imports: [
     HolidayCard,
-    FormsModule,
-    MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatRadioGroup,
     MatRadioButton,
     MatButton,
     HolidayCard,
+    FormRoot,
+    FormField,
   ],
 })
 export class HolidaysPage {
   protected readonly holidaysStore = inject(HolidaysStore);
-  protected readonly search = '';
-  protected readonly type = '0';
+  protected readonly filters = linkedSignal(() => {
+    const { query, type } = this.holidaysStore.filter();
+
+    return { query, type: String(type) };
+  });
+
+  protected readonly filterForm = form(this.filters, {
+    submission: {
+      action: async () => {
+        const { query, type } = this.filters();
+        this.holidaysStore.search(query, Number(type));
+      },
+    },
+  });
 
   protected addFavourite(id: number) {
     this.holidaysStore.addFavourite(id);
@@ -101,9 +111,5 @@ export class HolidaysPage {
 
   protected removeFavourite(id: number) {
     this.holidaysStore.removeFavourite(id);
-  }
-
-  protected handleSearch() {
-    this.holidaysStore.search(this.search, Number(this.type));
   }
 }

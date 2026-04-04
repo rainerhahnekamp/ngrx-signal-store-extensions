@@ -15,15 +15,16 @@ import { HolidayClient } from './holiday-client';
 import { timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MessageService } from '../../../../shared/ui-messaging/message/message.service';
+import { HolidayFilter } from '../model/model';
 
 export const HolidaysStore = signalStore(
   { providedIn: 'root' },
   withDevtools('holidays'),
   withState({
-    holidays: new Array<Holiday>(),
+    _holidays: new Array<Holiday>(),
     isLoaded: false,
     _favouriteIds: new Array<number>(),
-    filter: { query: '', type: 0 },
+    filter: { query: '', type: 0 } as HolidayFilter,
     _lastUpdated: Date.now(),
     lastUpdatedName: '',
   }),
@@ -37,9 +38,9 @@ export const HolidaysStore = signalStore(
       messageService = inject(MessageService),
     ) => ({
       async _load() {
-        const holidays = await holidayClient.getHolidays();
+        const _holidays = await holidayClient.getHolidays();
 
-        patchState(store, { holidays, isLoaded: true });
+        patchState(store, { _holidays, isLoaded: true });
       },
       async addFavourite(id: number) {
         await holidayClient.addFavourite(id);
@@ -77,15 +78,15 @@ export const HolidaysStore = signalStore(
   withComputed((state) => {
     const filteredHolidays = computed(() => {
       const { query, type } = state.filter();
+      console.log(state.filter());
       return state
-        .holidays()
+        ._holidays()
         .filter((holiday) => holiday.title.includes(query))
         .filter((holiday) => !type || holiday.typeId === type);
     });
 
     return {
-      filteredHolidays,
-      holidaysWithFavourite: () =>
+      holidays: () =>
         filteredHolidays().map((holiday) => ({
           ...holiday,
           isFavourite: state._favouriteIds().includes(holiday.id),
@@ -96,7 +97,7 @@ export const HolidaysStore = signalStore(
     onInit() {
       store.loadFromStorage();
 
-      if (store.isLoaded()) {
+      if (!store.isLoaded()) {
         store._load();
       }
 
