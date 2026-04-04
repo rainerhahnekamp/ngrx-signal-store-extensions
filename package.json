@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:coverage": "ng test --watch=false --coverage --reports-directory=coverage",
     "test:ci": "ng test --source-map=false --browsers=ChromeHeadless --watch=false",
     "lint": "ng lint",
     "verify": "npm run test:ci && npm run lint",

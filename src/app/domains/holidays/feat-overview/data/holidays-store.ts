@@ -16,6 +16,7 @@ import { timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MessageService } from '../../../../shared/ui-messaging/message/message.service';
 import { HolidayFilter } from '../model/model';
+import { skipSameValues } from '../../../../shared/util/skip-same-values';
 
 export const HolidaysStore = signalStore(
   { providedIn: 'root' },
@@ -57,7 +58,7 @@ export const HolidaysStore = signalStore(
         });
       },
       search(query: string, type: number) {
-        patchState(store, { filter: { query, type } });
+        patchState(store, skipSameValues({ filter: { query, type } }));
       },
       syncToStorage() {
         const state = getState(store);
@@ -75,24 +76,19 @@ export const HolidaysStore = signalStore(
       },
     }),
   ),
-  withComputed((state) => {
-    const filteredHolidays = computed(() => {
+  withComputed((state) => ({
+    holidays: () => {
       const { query, type } = state.filter();
-      console.log(state.filter());
       return state
         ._holidays()
         .filter((holiday) => holiday.title.includes(query))
-        .filter((holiday) => !type || holiday.typeId === type);
-    });
-
-    return {
-      holidays: () =>
-        filteredHolidays().map((holiday) => ({
+        .filter((holiday) => !type || holiday.typeId === type)
+        .map((holiday) => ({
           ...holiday,
           isFavourite: state._favouriteIds().includes(holiday.id),
-        })),
-    };
-  }),
+        }));
+    },
+  })),
   withHooks((store) => ({
     onInit() {
       store.loadFromStorage();
