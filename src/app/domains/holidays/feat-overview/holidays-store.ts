@@ -7,7 +7,9 @@ abstract class BaseStore<T = Record<string, unknown>> {
     return {} as T;
   }
 
-  patchState(value: Partial<T>) {}
+  patchState(value: Partial<T>) {
+    void value;
+  }
 }
 
 abstract class LocalStorageStore extends BaseStore {
