@@ -1,3 +1,6 @@
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
+import { effect, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   getState,
   patchState,
@@ -8,15 +11,12 @@ import {
   withProps,
   withState,
 } from '@ngrx/signals';
-import { withDevtools } from '@angular-architects/ngrx-toolkit';
-import { effect, inject } from '@angular/core';
-import { Holiday } from '../../model/holiday';
-import { HolidayClient } from './holiday-client';
 import { timer } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MessageService } from '../../../../shared/ui-messaging/message/message.service';
-import { HolidayFilter } from '../model/model';
 import { skipSameValues } from '../../../../shared/util/skip-same-values';
+import { Holiday } from '../../model/holiday';
+import { HolidayFilter } from '../model/model';
+import { HolidayClient } from './holiday-client';
 
 export const HolidaysStore = signalStore(
   { providedIn: 'root' },
@@ -98,6 +98,7 @@ export const HolidaysStore = signalStore(
       effect(() => {
         store._favouriteIds();
         store._holidays();
+        store.filter();
 
         patchState(store, { _lastUpdated: Date.now() });
       });
