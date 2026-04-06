@@ -5,6 +5,7 @@ import {
   SignalStoreFeatureResult,
   withProps,
 } from '@ngrx/signals';
+import { SignalStoreFeatureType } from './signal-store-feature-type';
 
 const hiddenProperty = Symbol('hidden');
 
@@ -19,6 +20,10 @@ export function withBetterHidden() {
     withProps(() => ({ [hiddenProperty]: true }) as Record<string, never>),
   );
 }
+
+export type MethodsProfileFeature = SignalStoreFeatureType<
+  typeof withMethodsProfiler
+>;
 
 export function withMethodsProfiler<
   Input extends SignalStoreFeatureResult,

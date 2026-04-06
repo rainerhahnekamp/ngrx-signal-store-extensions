@@ -8,6 +8,11 @@ import {
   withState,
 } from '@ngrx/signals';
 import { MessageService } from '../ui-messaging/message/message.service';
+import { SignalStoreFeatureType } from './signal-store-feature-type';
+
+export type LocalStorageSyncFeature = SignalStoreFeatureType<
+  typeof withLocalStorageSync
+>;
 
 export function withLocalStorageSync(storageKey: string, autoload = true) {
   return signalStoreFeature(
