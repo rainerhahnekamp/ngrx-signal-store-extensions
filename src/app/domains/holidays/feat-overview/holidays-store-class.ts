@@ -41,7 +41,7 @@ abstract class FinalStore extends LocalStorageStore {
   public readonly favouriteIds = this._favouriteIds.asReadonly();
 }
 
-export class HolidaysStore extends FinalStore {
+export class HolidaysStoreClass extends FinalStore {
   constructor() {
     super('holidays');
   }
