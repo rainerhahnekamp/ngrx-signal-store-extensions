@@ -1,4 +1,5 @@
 import { signalStoreFeature, withComputed } from '@ngrx/signals';
+import { getFavourites } from 'favourites';
 import { withHolidaysStoreMethods } from './2-holidays-store-methods';
 
 export function withHolidaysStoreComputed() {
@@ -13,7 +14,7 @@ export function withHolidaysStoreComputed() {
           .filter((holiday) => !type || holiday.typeId === type)
           .map((holiday) => ({
             ...holiday,
-            isFavourite: state._favouriteIds().includes(holiday.id),
+            isFavourite: getFavourites(state)().includes(holiday.id),
           }));
       },
     })),

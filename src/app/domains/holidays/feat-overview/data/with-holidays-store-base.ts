@@ -7,7 +7,8 @@ import {
 } from '@ngrx/signals';
 import { SignalStoreFeatureType } from '../../../../shared/signal-store-features/signal-store-feature-type';
 import { withCollection } from '../../../../shared/signal-store-features/with-collection';
-import { withFavourites } from '../../../../shared/signal-store-features/with-favourites';
+
+import { getFavourites, withFavourites } from 'favourites';
 import { withLastUpdated } from '../../../../shared/signal-store-features/with-last-updated';
 import { withLocalStorageSync } from '../../../../shared/signal-store-features/with-local-storage-sync';
 import { Holiday } from '../../model/holiday';
@@ -30,7 +31,7 @@ export function withHolidaysStoreBase() {
     withFeature((store) =>
       withLastUpdated(1000, () => ({
         holidays: store._holidays,
-        favouriteIds: store._favouriteIds(),
+        favouriteIds: getFavourites(store),
       })),
     ),
   );

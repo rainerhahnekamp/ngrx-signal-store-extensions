@@ -4,6 +4,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "strict": true,
+    "paths": {
+      "favourites": ["./dist/favourites"]
+    },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -28,6 +31,12 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/favourites/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/favourites/tsconfig.spec.json"
     }
   ]
 }

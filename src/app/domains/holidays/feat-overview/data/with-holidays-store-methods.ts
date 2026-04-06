@@ -6,10 +6,7 @@ import {
   withMethods,
 } from '@ngrx/signals';
 import { setAllEntities } from '@ngrx/signals/entities';
-import {
-  addFavourite,
-  removeFavourite,
-} from '../../../../shared/signal-store-features/with-favourites';
+import { addFavourite, removeFavourite } from 'favourites';
 import { skipSameValues } from '../../../../shared/util/skip-same-values';
 import { HolidayClient } from './holiday-client';
 import { HolidaysStoreBaseType } from './with-holidays-store-base';

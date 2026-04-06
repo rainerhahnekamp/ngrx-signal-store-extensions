@@ -1,9 +1,6 @@
 import { inject } from '@angular/core';
 import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
-import {
-  addFavourite,
-  removeFavourite,
-} from '../../../../../shared/signal-store-features/with-favourites';
+import { addFavourite, removeFavourite } from 'favourites';
 import { skipSameValues } from '../../../../../shared/util/skip-same-values';
 import { HolidayClient } from '../holiday-client';
 import { withHolidaysStoreBase } from './1-holidays-store-base';

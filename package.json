@@ -90,6 +90,7 @@
     "keycloak-js": "^26.1.4",
     "lint-staged": "^15.5.2",
     "ng-mocks": "^14.15.2",
+    "ng-packagr": "^21.2.0",
     "postcss": "^8.4.28",
     "prettier": "^3.2.4",
     "storybook": "^10.0.8",
