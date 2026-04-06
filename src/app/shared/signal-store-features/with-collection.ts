@@ -34,7 +34,7 @@ export function withCollection<
     }),
     withComputed(
       (store) =>
-        ({ [name]: store.entities }) as unknown as Record<
+        ({ [name]: store.entities as Signal<Collection[]> }) as Record<
           Name,
           Signal<Collection[]>
         >,
