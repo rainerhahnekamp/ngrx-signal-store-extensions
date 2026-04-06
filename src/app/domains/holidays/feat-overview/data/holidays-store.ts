@@ -20,6 +20,7 @@ import { skipSameValues } from '../../../../shared/util/skip-same-values';
 import { Holiday } from '../../model/holiday';
 import { HolidayFilter } from '../model/model';
 import { HolidayClient } from './holiday-client';
+import { withMethodsProfiler } from '../../../../shared/signal-store-features/with-methods-profiler';
 
 export const HolidaysStore = signalStore(
   { providedIn: 'root' },
@@ -30,7 +31,7 @@ export const HolidaysStore = signalStore(
     filter: { query: '', type: 0 } as HolidayFilter,
   }),
   withFavourites(),
-  withLocalStorageSync('holidays'),
+  withLocalStorageSync('holidays', false),
   withFeature((store) =>
     withLastUpdated(1000, () => ({
       holidays: store._holidays(),
@@ -70,6 +71,7 @@ export const HolidaysStore = signalStore(
         }));
     },
   })),
+  withMethodsProfiler(),
   withHooks((store) => ({
     onInit() {
       if (!store.isLoaded()) {
