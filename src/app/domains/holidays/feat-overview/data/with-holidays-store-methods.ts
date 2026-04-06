@@ -5,6 +5,7 @@ import {
   type,
   withMethods,
 } from '@ngrx/signals';
+import { setAllEntities } from '@ngrx/signals/entities';
 import {
   addFavourite,
   removeFavourite,
@@ -18,8 +19,8 @@ export function withHolidaysStoreMethods<_>() {
     type<HolidaysStoreBaseType>(),
     withMethods((store, holidayClient = inject(HolidayClient)) => ({
       async _load() {
-        const _holidays = await holidayClient.getHolidays();
-        patchState(store, { _holidays, isLoaded: true });
+        const holidays = await holidayClient.getHolidays();
+        patchState(store, setAllEntities(holidays), { isLoaded: true });
       },
       search(query: string, type: number) {
         patchState(store, skipSameValues({ filter: { query, type } }));

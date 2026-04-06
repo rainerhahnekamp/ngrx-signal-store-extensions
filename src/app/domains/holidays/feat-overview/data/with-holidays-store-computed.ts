@@ -8,7 +8,7 @@ export function withHolidaysStoreComputed() {
       holidays: () => {
         const { query, type } = state.filter();
         return state
-          ._holidays()
+          .entities()
           .filter((holiday) => holiday.title.includes(query))
           .filter((holiday) => !type || holiday.typeId === type)
           .map((holiday) => ({

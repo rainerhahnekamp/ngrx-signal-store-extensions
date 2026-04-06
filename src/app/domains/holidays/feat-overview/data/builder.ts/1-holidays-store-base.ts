@@ -4,7 +4,7 @@ import { SignalStoreFeatureType } from '../../../../../shared/signal-store-featu
 import { withFavourites } from '../../../../../shared/signal-store-features/with-favourites';
 import { withLastUpdated } from '../../../../../shared/signal-store-features/with-last-updated';
 import { withLocalStorageSync } from '../../../../../shared/signal-store-features/with-local-storage-sync';
-import { HolidaysOwnState } from '../types';
+import { Holiday } from '../../../model/holiday';
 
 export type HolidaysStoreBaseType = SignalStoreFeatureType<
   typeof withHolidaysStoreBase
@@ -13,8 +13,8 @@ export type HolidaysStoreBaseType = SignalStoreFeatureType<
 export function withHolidaysStoreBase() {
   return signalStoreFeature(
     withDevtools('holidays'),
-    withState<HolidaysOwnState>({
-      _holidays: [],
+    withState({
+      _holidays: [] as Holiday[],
       isLoaded: false,
       filter: { query: '', type: 0 },
     }),
