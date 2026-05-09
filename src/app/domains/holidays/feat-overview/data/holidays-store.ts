@@ -1,5 +1,5 @@
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
-import { effect, inject } from '@angular/core';
+import { inject, linkedSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   getState,
@@ -7,6 +7,7 @@ import {
   signalStore,
   withComputed,
   withHooks,
+  withLinkedState,
   withMethods,
   withProps,
   withState,
@@ -26,7 +27,6 @@ export const HolidaysStore = signalStore(
     isLoaded: false,
     _favouriteIds: new Array<number>(),
     filter: { query: '', type: 0 } as HolidayFilter,
-    _lastUpdated: Date.now(),
     lastUpdatedName: '',
   }),
   withProps(() => ({
@@ -87,6 +87,14 @@ export const HolidaysStore = signalStore(
         }));
     },
   })),
+  withLinkedState((store) => ({
+    _lastUpdated: linkedSignal(() => {
+      store._favouriteIds();
+      store._holidays();
+      store.filter();
+      return Date.now();
+    }),
+  })),
   withHooks((store) => ({
     onInit() {
       store.loadFromStorage();
@@ -94,14 +102,6 @@ export const HolidaysStore = signalStore(
       if (!store.isLoaded()) {
         store._load();
       }
-
-      effect(() => {
-        store._favouriteIds();
-        store._holidays();
-        store.filter();
-
-        patchState(store, { _lastUpdated: Date.now() });
-      });
 
       timer(0, 1000)
         .pipe(takeUntilDestroyed())
