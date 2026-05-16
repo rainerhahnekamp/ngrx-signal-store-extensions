@@ -1,12 +1,12 @@
 # NgRx SignalStore Extensions
 
-<a href="https://youtu.be/dM9lfElODK4" target="_blank" rel="noopener noreferrer">
-  <img src="assets/cover.jpg" alt="NgRx SignalStore Extensions video cover">
-</a>
-
 Demo repository for the video: https://youtu.be/dM9lfElODK4
 
 The repository contains the code steps for building and using NgRx SignalStore extensions in an Angular application. Each branch represents one step in the video, so you can compare the implementation as it evolves.
+
+<a href="https://youtu.be/dM9lfElODK4" target="_blank" rel="noopener noreferrer">
+  <img src="assets/cover.jpg" alt="NgRx SignalStore Extensions video cover">
+</a>
 
 ## Branches
 
@@ -18,26 +18,6 @@ The repository contains the code steps for building and using NgRx SignalStore e
 - [`5-builder-pattern`](https://github.com/rainerhahnekamp/ngrx-signal-store-extensions/tree/5-builder-pattern): using a builder-style API
 - [`6-dynamic-features`](https://github.com/rainerhahnekamp/ngrx-signal-store-extensions/tree/6-dynamic-features): adding dynamic behavior
 - [`7-non-polluting-features`](https://github.com/rainerhahnekamp/ngrx-signal-store-extensions/tree/7-non-polluting-features): avoiding unwanted public API pollution
-
-## Getting Started
-
-Install dependencies:
-
-```bash
-pnpm install
-```
-
-Start the Angular application:
-
-```bash
-pnpm start
-```
-
-Run the test suite:
-
-```bash
-pnpm test
-```
 
 ## Switching Steps
 
