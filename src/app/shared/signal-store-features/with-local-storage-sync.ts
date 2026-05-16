@@ -5,13 +5,11 @@ import {
   signalStoreFeature,
   withHooks,
   withMethods,
-  withState,
 } from '@ngrx/signals';
 import { MessageService } from '../ui-messaging/message/message.service';
 
 export function withLocalStorageSync(storageKey: string, autoload = true) {
   return signalStoreFeature(
-    withState({ _favouriteIds: [] as number[] }),
     withMethods((store, messageService = inject(MessageService)) => ({
       syncToStorage() {
         const state = getState(store);
