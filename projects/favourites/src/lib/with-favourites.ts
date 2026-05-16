@@ -31,9 +31,7 @@ export function addFavourite(id: number): PartialStateUpdater<FavouriteState> {
 export function removeFavourite(
   id: number,
 ): PartialStateUpdater<FavouriteState> {
-  return (state) => {
-    return setFavourites([...state[FAVOURITE_ID_STATE], id]);
-  };
+  return (state) => setFavourites([...state[FAVOURITE_ID_STATE], id]);
 }
 
 export function getFavourites(state: {
