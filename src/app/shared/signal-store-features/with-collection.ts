@@ -7,12 +7,16 @@ import {
 } from '@ngrx/signals';
 import { setAllEntities, withEntities } from '@ngrx/signals/entities';
 
+type PublicName<Name extends string> = Name extends `_${infer Suffix}`
+  ? Capitalize<Suffix>
+  : Capitalize<Name>;
+
 type CollectionMethods<
   AddSetter extends boolean,
   Name extends string,
   Collection extends { id: number },
 > = AddSetter extends true
-  ? Record<`set${Capitalize<Name>}`, (collection: Collection[]) => void>
+  ? Record<`set${PublicName<Name>}`, (collection: Collection[]) => void>
   : Record<string, never>;
 
 export function withCollection<
@@ -26,8 +30,12 @@ export function withCollection<
       if (!addSetter) {
         return {} as CollectionMethods<AddSetter, Name, Collection>;
       }
+
+      const publicName = name.startsWith('_')
+        ? capitalize(name.slice(1))
+        : capitalize(name);
       return {
-        ['set' + capitalize(name)]: (collection: Collection[]) => {
+        [`set${publicName}`]: (collection: Collection[]) => {
           patchState(store, setAllEntities(collection));
         },
       } as CollectionMethods<AddSetter, Name, Collection>;

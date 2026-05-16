@@ -5,7 +5,6 @@ import {
   type,
   withMethods,
 } from '@ngrx/signals';
-import { setAllEntities } from '@ngrx/signals/entities';
 import {
   addFavourite,
   removeFavourite,
@@ -20,7 +19,14 @@ export function withHolidaysStoreMethods<_>() {
     withMethods((store, holidayClient = inject(HolidayClient)) => ({
       async _load() {
         const holidays = await holidayClient.getHolidays();
-        patchState(store, setAllEntities(holidays), { isLoaded: true });
+        patchState(store, { isLoaded: true });
+
+        /**
+         * this is for demo purposes. In real world, you would
+         * a standalone setHolidays function and call it inside
+         * `patchState`.
+         */
+        store.setHolidays(holidays);
       },
       search(query: string, type: number) {
         patchState(store, skipSameValues({ filter: { query, type } }));
