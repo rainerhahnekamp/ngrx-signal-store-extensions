@@ -1,9 +1,10 @@
-import { effect } from '@angular/core';
+import { linkedSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   patchState,
   signalStoreFeature,
   withHooks,
+  withLinkedState,
   withState,
 } from '@ngrx/signals';
 import { timer } from 'rxjs';
@@ -19,22 +20,21 @@ export function withLastUpdated(
 ) {
   return signalStoreFeature(
     withState({
-      _lastUpdated: Date.now(),
       lastUpdatedName: '',
     }),
+    withLinkedState(() => ({
+      [TRACKING_SIGNAL]: linkedSignal(() => {
+        trackingSignal();
+        return Date.now();
+      }),
+    })),
     withHooks((store) => ({
       onInit() {
-        effect(() => {
-          trackingSignal();
-
-          patchState(store, { _lastUpdated: Date.now() });
-        });
-
         timer(0, updateInterval)
           .pipe(takeUntilDestroyed())
           .subscribe(() =>
-            patchState(store, ({ _lastUpdated }) => ({
-              lastUpdatedName: calcTimeName(_lastUpdated),
+            patchState(store, (state) => ({
+              lastUpdatedName: calcTimeName(state[TRACKING_SIGNAL]),
             })),
           );
       },
