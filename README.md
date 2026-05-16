@@ -1,6 +1,8 @@
 # NgRx SignalStore Extensions
 
-[![NgRx SignalStore Extensions video cover](assets/cover.jpg)](https://youtu.be/dM9lfElODK4)
+<a href="https://youtu.be/dM9lfElODK4" target="_blank" rel="noopener noreferrer">
+  <img src="assets/cover.jpg" alt="NgRx SignalStore Extensions video cover">
+</a>
 
 Demo repository for the video: https://youtu.be/dM9lfElODK4
 
