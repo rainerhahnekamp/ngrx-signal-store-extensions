@@ -1,16 +1,56 @@
-![build status](https://github.com/rainerhahnekamp/eternal/actions/workflows/build.yml/badge.svg)
+# NgRx SignalStore Extensions
 
-# Eternal: Demo Application for Angular/Spring Workshops
+![NgRx SignalStore Extensions video cover](assets/cover.jpg)
 
-This project is the basis for some workshops provided by Angular Architects.
+Demo repository for the video:
 
-Each workshop has its main branch but all derive from the main branch.
+https://youtu.be/dM9lfElODK4
 
-## Branches:
+The repository contains the code steps for building and using NgRx SignalStore extensions in an Angular application. Each branch represents one step in the video, so you can compare the implementation as it evolves.
 
-- [Modern Spring Backends](https://www.angulararchitects.io/en/training/modern-spring-backends-for-angular/): [main-spring](https://github.com/rainerhahnekamp/eternal/tree/main-spring) ![build-status](https://github.com/rainerhahnekamp/eternal/actions/workflows/build.yml/badge.svg?branch=main-spring)
-- [Professional Angular Testing (Cypress)](https://www.angulararchitects.io/en/training/professional-angular-testing/): [main-testing-cypress](https://github.com/rainerhahnekamp/eternal/tree/main-testing-cypress) ![build-status](https://github.com/rainerhahnekamp/eternal/actions/workflows/build.yml/badge.svg?branch=main-testing-cypress)
-- [Professional Angular Testing (Playwright)](https://www.angulararchitects.io/en/training/professional-angular-testing-playwright-edition/): [main-testing-playwright](https://github.com/rainerhahnekamp/eternal/tree/main-testing-playwright) ![build-status](https://github.com/rainerhahnekamp/eternal/actions/workflows/build.yml/badge.svg?branch=main-testing-playwright)
-- [E2E Testing with Cypress](https://www.angulararchitects.io/en/training/cypress-workshop/): [main-cypress](https://github.com/rainerhahnekamp/eternal/tree/main-cypress) ![build-status](https://github.com/rainerhahnekamp/eternal/actions/workflows/build.yml/badge.svg?branch=main-cypress)
-- [E2E Testing with Playwright](https://www.angulararchitects.io/en/training/playwright-workshop/): [main-playwright](https://github.com/rainerhahnekamp/eternal/tree/main-playwright) ![build-status](https://github.com/rainerhahnekamp/eternal/actions/workflows/build.yml/badge.svg?branch=main-playwright)
-- [NgRx Advanced](https://www.angulararchitects.io/en/training/professional-ngrx-advanced-state-management-best-practices/): [main-ngrx](https://github.com/rainerhahnekamp/eternal/tree/main-ngrx) ![build-status](https://github.com/rainerhahnekamp/eternal/actions/workflows/build.yml/badge.svg?branch=main-ngrx)
+## Branches
+
+- `main` / `0-init`: starting point
+- `1-basics`: basic SignalStore extension setup
+- `2-self-written`: first custom extension
+- `3-deep-dive`: closer look at how extensions compose
+- `4-multiple-files`: splitting the implementation across files
+- `5-builder-pattern`: using a builder-style API
+- `6-dynamic-features`: adding dynamic behavior
+- `7-non-polluting-features`: avoiding unwanted public API pollution
+
+## Getting Started
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the Angular application:
+
+```bash
+npm start
+```
+
+Run the test suite:
+
+```bash
+npm test
+```
+
+## Switching Steps
+
+Use Git branches to move between the video steps:
+
+```bash
+git switch 0-init
+git switch 1-basics
+git switch 7-non-polluting-features
+```
+
+To inspect what changed between two steps:
+
+```bash
+git diff 1-basics..2-self-written
+```
